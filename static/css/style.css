@@ -1,0 +1,599 @@
+/* Ooredoo Qatar Website Clone
+ * Main CSS Stylesheet
+ */
+
+:root {
+    --ooredoo-primary: #e60000;
+    --ooredoo-secondary: #f8f9fa;
+    --ooredoo-dark: #222222;
+}
+
+/* General Styles */
+body {
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    text-align: right;
+    color: var(--ooredoo-dark);
+    background-color: #f8f9fa;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--ooredoo-primary);
+    border-color: var(--ooredoo-primary);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #cc0000;
+    border-color: #cc0000;
+}
+
+.btn-outline-primary {
+    color: var(--ooredoo-primary);
+    border-color: var(--ooredoo-primary);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+    color: #fff;
+    background-color: var(--ooredoo-primary);
+    border-color: var(--ooredoo-primary);
+}
+
+.text-primary {
+    color: var(--ooredoo-primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--ooredoo-primary) !important;
+}
+
+/* Navbar Styles */
+.navbar {
+    padding: 0.75rem 0;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--ooredoo-primary);
+}
+
+.navbar-brand {
+    display: flex;
+    justify-content: center;
+}
+
+/* Ooredoo Top Menu Styles */
+.text-ooredoo {
+    color: var(--ooredoo-primary);
+}
+
+.navbar-icon-link {
+    text-decoration: none;
+    color: var(--ooredoo-dark);
+    transition: transform 0.2s;
+}
+
+.navbar-icon-link:hover {
+    color: var(--ooredoo-primary);
+    transform: translateY(-2px);
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.navbar-icon-text {
+    font-size: 0.7rem;
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+/* ترتيب أيقونات رأس الموقع للتصميم العربي */
+@media (max-width: 767.98px) {
+    .navbar-brand {
+        margin-right: 0; /* إلغاء الهامش الافتراضي في Bootstrap */
+    }
+}
+
+.breadcrumb-item a {
+    color: var(--ooredoo-primary);
+}
+
+.breadcrumb-item.active {
+    color: var(--ooredoo-dark);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #999;
+    content: "/ ";
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 1rem 0;
+    background-color: #fff;
+    margin-bottom: 1rem;
+}
+
+.hero-image img {
+    max-width: 100%;
+    max-height: 600px;
+}
+
+.hero-content {
+    padding: 1rem 0;
+}
+
+.hero-content h1 {
+    color: var(--ooredoo-primary);
+    font-weight: 800;
+}
+
+/* Obot Robot Styles */
+.obot-header {
+    margin-bottom: 0.5rem;
+}
+
+.obot-logo {
+    margin-bottom: 0.5rem;
+}
+
+.obot-robot {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.obot-robot img {
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.obot-robot img:hover {
+    transform: translateY(-5px);
+}
+
+.ooredoo-logo {
+    margin-top: 1rem;
+}
+
+.ooredoo-logo svg {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Services Section */
+.service-card {
+    transition: transform 0.3s;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(230, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--ooredoo-primary);
+}
+
+/* Plans Section */
+.plan-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-card.highlighted {
+    transform: scale(1.05);
+    border: 2px solid var(--ooredoo-primary);
+    z-index: 1;
+}
+
+.plan-card.highlighted:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.price-tag {
+    font-weight: 700;
+}
+
+.price {
+    font-size: 2.5rem;
+    color: var(--ooredoo-primary);
+}
+
+.currency {
+    font-size: 1.2rem;
+    vertical-align: super;
+}
+
+.period {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.ribbon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 30px;
+    transform: rotate(45deg) translateX(50px) translateY(-20px);
+    background-color: var(--ooredoo-primary);
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* App Section */
+.app-download-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.app-download-btn:hover {
+    background-color: #222;
+    color: white;
+}
+
+/* Bill Payment & Recharge Sections */
+.bill-payment-section, .recharge-section {
+    padding: 1rem 0;
+}
+
+/* Package Cards */
+.package-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.package-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Payment Page */
+.payment-section {
+    background-color: #ffffff;
+}
+
+.payment-methods {
+    padding-bottom: 1rem;
+}
+
+.payment-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.payment-icons img {
+    object-fit: contain;
+    max-height: 25px;
+    filter: grayscale(0.2);
+}
+
+.total-amount-container {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.total-amount h3 {
+    font-size: 1.8rem;
+    color: #000;
+}
+
+.time-counter {
+    background-color: #f9f9f9 !important;
+    border-radius: 8px;
+}
+
+.time-counter .countdown-icon {
+    color: #28a745;
+    font-size: 1.2rem;
+}
+
+.dropdown-toggle::after {
+    vertical-align: middle;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.form-control:focus {
+    border-color: #E60000;
+    box-shadow: 0 0 0 0.25rem rgba(230, 0, 0, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+}
+
+/* OTP Page */
+.otp-section {
+    padding: 3rem 0;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #222;
+}
+
+.footer h5 {
+    font-weight: 600;
+    color: #fff;
+    border-bottom: 2px solid var(--ooredoo-primary);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.footer ul li a:hover {
+    color: var(--ooredoo-primary) !important;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    transition: background-color 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: var(--ooredoo-primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .hero-content {
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .hero-section {
+        padding: 1.5rem 0;
+    }
+    
+    .plan-card.highlighted {
+        transform: scale(1);
+    }
+    
+    .plan-card.highlighted:hover {
+        transform: scale(1) translateY(-5px);
+    }
+}
+
+/* Ooredoo Recharge Page Styles */
+.recharge-section h1 {
+    font-weight: 700;
+    color: #222;
+}
+
+.package-card-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.package-banner {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner-left, .banner-right, .banner-full {
+    padding: 8px 15px;
+    color: white;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.banner-left {
+    flex: 1;
+}
+
+.banner-right {
+    flex: 2;
+}
+
+.banner-full {
+    flex: 1;
+    width: 100%;
+}
+
+.package-card {
+    display: flex;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.price-circle {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    background-color: #E60000;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    position: relative;
+}
+
+.price-prefix {
+    font-size: 0.6rem;
+    position: absolute;
+    top: 22px;
+    right: 15px;
+}
+
+.price-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.package-info {
+    flex: 1;
+}
+
+.package-title {
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.package-desc {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.package-features {
+    margin-bottom: 15px;
+}
+
+.feature-item h4 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    color: #222;
+}
+
+.feature-item p {
+    margin-bottom: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.validity {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.package-footer {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.validity-note {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.terms-link {
+    color: #666;
+    text-decoration: none;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+.details-link {
+    color: #E60000;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.details-link:hover {
+    text-decoration: underline;
+}
+
+.btn-recharge {
+    background-color: #E60000;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 25px;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-recharge:hover {
+    background-color: #d10000;
+    color: white;
+}
+
+.filter-sort-bar {
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-sort-bar a {
+    color: #E60000;
+    font-weight: 500;
+}
+
+.filter-sort-bar a:hover {
+    color: #d10000;
+}
+
+@media (max-width: 768px) {
+    .package-card {
+        flex-direction: column;
+    }
+    
+    .price-circle {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+    
+    .package-features .col-md-4 {
+        margin-bottom: 15px;
+    }
+}

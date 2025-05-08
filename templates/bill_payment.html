@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}دفع الفواتير{% endblock %}
+
+{% block content %}
+<div class="bill-payment-section">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">دفع الفواتير</h2>
+                </div>
+                <div class="card-body">
+                    {% if bill %}
+                        <div class="alert alert-info">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="alert-heading">تفاصيل الفاتورة</h5>
+                                    <p>رقم الهاتف: {{ session.get('mobile_number') }}</p>
+                                    <p>رقم الفاتورة: {{ bill.bill_number }}</p>
+                                    <p>المبلغ المستحق: {{ bill.amount }} ر.ق</p>
+                                    <p>تاريخ الاستحقاق: {{ bill.due_date.strftime('%Y-%m-%d') }}</p>
+                                </div>
+                                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                    <a href="{{ url_for('pay_bill') }}" class="btn btn-primary btn-lg">دفع الآن</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center mb-4">
+                            <i class="fas fa-file-invoice-dollar fa-4x text-primary mb-3"></i>
+                            <h4>استعلم عن فاتورتك الشهرية ودفعها بكل سهولة</h4>
+                            <p class="text-muted">أدخل رقم هاتفك للاستعلام عن الفواتير المستحقة</p>
+                        </div>
+                        
+                        <form method="POST" class="needs-validation" novalidate>
+                            {{ form.csrf_token }}
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.mobile_number.id }}" class="form-label">{{ form.mobile_number.label }}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+974</span>
+                                    {{ form.mobile_number(class="form-control", placeholder="أدخل رقم الهاتف") }}
+                                </div>
+                                {% if form.mobile_number.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.mobile_number.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">أدخل رقم هاتفك المكون من 8 أرقام بدون الرمز الدولي</div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                {{ form.submit(class="btn btn-primary btn-lg") }}
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bill-payment-info my-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                    <h4>دفع آمن</h4>
+                    <p>نستخدم أحدث تقنيات الأمان لحماية معلوماتك وبياناتك المالية</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+                    <h4>دفع سريع</h4>
+                    <p>أتمم عملية الدفع في أقل من دقيقة واحدة</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-history fa-3x text-primary mb-3"></i>
+                    <h4>سجل المدفوعات</h4>
+                    <p>تتبع جميع مدفوعاتك السابقة بسهولة عبر حسابك الشخصي</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ooredoo Qatar - الصفحة الرئيسية</title>
+    
+    <!-- Bootstrap RTL CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.rtl.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+    
+</head>
+<body>
+    <!-- Header -->
+    <!-- Top Navigation Bar -->
+<div class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+        <!-- Icons Menu -->
+        <div class="d-flex justify-content-start align-items-center">
+            <a href="/bill-payment" class="navbar-icon-link mx-2">
+                <div class="text-center">
+                    <img src="/static/images/pay-bill-icon.svg" alt="دفع الفواتير" height="30">
+                    <div class="icon-text">دفع الفواتير</div>
+                </div>
+            </a>
+            <a href="/recharge" class="navbar-icon-link mx-2">
+                <div class="text-center">
+                    <img src="/static/images/recharge-icon.svg" alt="تعبئة الرصيد" height="30">
+                    <div class="icon-text">تعبئة الرصيد</div>
+                </div>
+            </a>
+            <a href="#" class="navbar-icon-link mx-2">
+                <div class="text-center">
+                    <img src="/static/images/search-icon.svg" alt="بحث" height="30">
+                    <div class="icon-text">بحث</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Logo Center -->
+        <a class="navbar-brand mx-auto" href="/">
+            <img src="/static/images/ooredoo-logo.svg" alt="Ooredoo Qatar" height="40">
+        </a>
+        
+        <!-- Menu Button Right -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars fa-lg text-ooredoo"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Secondary Navigation (Hidden by default on mobile) -->
+<div class="collapse navbar-collapse bg-light" id="navbarNav">
+    <div class="container">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 py-2">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">الرئيسية</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/bill-payment">دفع الفواتير</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/recharge">تعبئة الرصيد</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    الباقات
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">باقات البيانات</a></li>
+                    <li><a class="dropdown-item" href="#">باقات المكالمات</a></li>
+                    <li><a class="dropdown-item" href="#">الباقات الشهرية</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">جميع الباقات</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">العروض</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <a href="#" class="btn btn-outline-primary me-2">تسجيل الدخول</a>
+            <div class="dropdown">
+                <button class="btn btn-link text-dark dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-globe"></i> العربية
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                    <li><a class="dropdown-item active" href="#">العربية</a></li>
+                    <li><a class="dropdown-item" href="#">English</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Navigation Bar (Breadcrumb) -->
+<div class="bg-light border-bottom py-2">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item">مسبق الدفع</li>
+                <li class="breadcrumb-item active" aria-current="page">تعبئة الرصيد</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+    
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+            
+        
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container py-4">
+        
+<div class="hero-section">
+    <div class="row align-items-center">
+        <div class="col-lg-6 mx-auto text-center">
+            <div class="hero-image">
+                <img src="/static/images/hero-obot.svg" alt="Ooredoo Bot" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="services-section my-5">
+    <h2 class="text-center mb-4">خدماتنا</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 service-card">
+                <div class="card-body text-center">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar fa-3x"></i>
+                    </div>
+                    <h3 class="card-title mt-3">دفع الفواتير</h3>
+                    <p class="card-text">ادفع فواتيرك الشهرية بسهولة وأمان عبر موقعنا الإلكتروني</p>
+                    <a href="/bill-payment" class="btn btn-outline-primary">دفع الآن</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 service-card">
+                <div class="card-body text-center">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt fa-3x"></i>
+                    </div>
+                    <h3 class="card-title mt-3">تعبئة الرصيد</h3>
+                    <p class="card-text">اشترك في باقات البيانات والمكالمات المختلفة التي تناسب احتياجاتك</p>
+                    <a href="/recharge" class="btn btn-outline-primary">اشترك الآن</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 service-card">
+                <div class="card-body text-center">
+                    <div class="service-icon">
+                        <i class="fas fa-headset fa-3x"></i>
+                    </div>
+                    <h3 class="card-title mt-3">خدمة العملاء</h3>
+                    <p class="card-text">فريق خدمة العملاء متاح على مدار الساعة للإجابة على استفساراتك</p>
+                    <a href="#" class="btn btn-outline-primary">تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="plans-section my-5">
+    <h2 class="text-center mb-4">باقاتنا المميزة</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 plan-card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title text-center">شهري 90</h3>
+                </div>
+                <div class="card-body">
+                    <div class="price-tag text-center mb-3">
+                        <span class="price">90</span>
+                        <span class="currency">ر.ق</span>
+                        <span class="period">/شهر</span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>مكالمات محلية غير محدودة</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>10 جيجابايت إنترنت</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>100 دقيقة دولية</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-primary">اشترك الآن</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 plan-card highlighted">
+                <div class="ribbon"><span>الأكثر شعبية</span></div>
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title text-center">شهري 150</h3>
+                </div>
+                <div class="card-body">
+                    <div class="price-tag text-center mb-3">
+                        <span class="price">150</span>
+                        <span class="currency">ر.ق</span>
+                        <span class="period">/شهر</span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>مكالمات محلية غير محدودة</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>20 جيجابايت إنترنت</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>200 دقيقة دولية</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-primary">اشترك الآن</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 plan-card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title text-center">شهري 250</h3>
+                </div>
+                <div class="card-body">
+                    <div class="price-tag text-center mb-3">
+                        <span class="price">250</span>
+                        <span class="currency">ر.ق</span>
+                        <span class="period">/شهر</span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>مكالمات محلية غير محدودة</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>30 جيجابايت إنترنت</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>300 دقيقة دولية</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-primary">اشترك الآن</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 mb-4 mb-lg-0">
+                <img src="/static/images/logo.svg" alt="Ooredoo Qatar" class="mb-3" height="40">
+                <p>أوريدو هي شركة اتصالات قطرية تقدم خدمات الاتصالات المتكاملة في قطر والشرق الأوسط وشمال أفريقيا وجنوب شرق آسيا.</p>
+                <div class="social-icons mt-3">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-3">الباقات والخدمات</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">باقات الموبايل</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">باقات الإنترنت</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">الخدمات الذكية</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">تطبيق أوريدو</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">العروض الحصرية</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-3">الدعم والمساعدة</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">الأسئلة الشائعة</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">تواصل معنا</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">فروعنا</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">الشكاوى والاقتراحات</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">خدمة العملاء</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <h5 class="text-uppercase mb-3">عن الشركة</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">من نحن</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">المسؤولية المجتمعية</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">الوظائف</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">الأخبار والفعاليات</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">علاقات المستثمرين</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="mt-4 mb-4 bg-light">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">&copy; 2023 Ooredoo Q.P.S.C. جميع الحقوق محفوظة</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">سياسة الخصوصية</a></li>
+                    <li class="list-inline-item"><span class="text-white mx-2">|</span></li>
+                    <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">شروط الاستخدام</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    
+    
+</body>
+</html>

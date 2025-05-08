@@ -1,0 +1,121 @@
+<!-- Top Navigation Bar -->
+<div class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+        <!-- أيقونات البحث، دفع الفواتير، تعبئة الرصيد (على اليسار للتصميم العربي RTL) -->
+        <div class="d-flex justify-content-start align-items-center">
+            <a href="#" class="navbar-icon-link mx-2">
+                <div class="text-center">
+                    <div class="icon-container">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14" cy="14" r="8" stroke="#E60000" stroke-width="4"/>
+                            <line x1="19.8284" y1="19.8284" x2="26.1716" y2="26.1716" stroke="#E60000" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="navbar-icon-text">بحث</div>
+                </div>
+            </a>
+            <a href="{{ url_for('bill_payment') }}" class="navbar-icon-link mx-2">
+                <div class="text-center">
+                    <div class="icon-container">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="28" rx="2" transform="matrix(-1 0 0 1 28 2)" fill="#E60000"/>
+                            <rect width="2" height="4" transform="matrix(-1 0 0 1 20 6)" fill="white"/>
+                            <rect width="8" height="2" transform="matrix(-1 0 0 1 23 12)" fill="white"/>
+                            <rect width="12" height="2" transform="matrix(-1 0 0 1 23 16)" fill="white"/>
+                            <rect width="12" height="2" transform="matrix(-1 0 0 1 23 20)" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="navbar-icon-text">دفع الفواتير</div>
+                </div>
+            </a>
+            <a href="{{ url_for('recharge') }}" class="navbar-icon-link mx-2">
+                <div class="text-center">
+                    <div class="icon-container">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="28" rx="2" transform="matrix(-1 0 0 1 28 2)" fill="#E60000"/>
+                            <rect width="12" height="2" transform="matrix(-1 0 0 1 23 8)" fill="white"/>
+                            <rect width="8" height="2" transform="matrix(-1 0 0 1 19 12)" fill="white"/>
+                            <rect width="4" height="2" transform="matrix(-1 0 0 1 15 16)" fill="white"/>
+                            <rect width="16" height="2" transform="matrix(-1 0 0 1 23 22)" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="navbar-icon-text">تعبئة الرصيد</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- شعار Ooredoo في المنتصف -->
+        <a class="navbar-brand mx-auto" href="{{ url_for('index') }}">
+            <span style="font-family: Arial, sans-serif; font-size: 28px; font-weight: bold; color: #E60000;">ooredoo</span>
+            <span style="display: inline-block; margin-right: 2px; font-size: 22px; color: #E60000;">•</span>
+        </a>
+        
+        <!-- زر القائمة المنسدلة على اليمين -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 6H21" stroke="#E60000" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 12H21" stroke="#E60000" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 18H21" stroke="#E60000" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
+</div>
+<!-- الخط الأحمر تحت النافبار -->
+<div class="red-line" style="height: 2px; background-color: #E60000;"></div>
+
+<!-- Secondary Navigation (Hidden by default on mobile) -->
+<div class="collapse navbar-collapse bg-light" id="navbarNav">
+    <div class="container">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 py-2">
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{{ url_for('index') }}">الرئيسية</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/bill-payment' %}active{% endif %}" href="{{ url_for('bill_payment') }}">دفع الفواتير</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/recharge' %}active{% endif %}" href="{{ url_for('recharge') }}">تعبئة الرصيد</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    الباقات
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">باقات البيانات</a></li>
+                    <li><a class="dropdown-item" href="#">باقات المكالمات</a></li>
+                    <li><a class="dropdown-item" href="#">الباقات الشهرية</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">جميع الباقات</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">العروض</a>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <a href="#" class="btn btn-outline-primary me-2">تسجيل الدخول</a>
+            <div class="dropdown">
+                <button class="btn btn-link text-dark dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-globe"></i> العربية
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                    <li><a class="dropdown-item active" href="#">العربية</a></li>
+                    <li><a class="dropdown-item" href="#">English</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Navigation Bar (Breadcrumb) -->
+<div class="bg-light py-2" style="border-bottom: 1px solid #E60000;">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ url_for('index') }}"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item">مسبق الدفع</li>
+                <li class="breadcrumb-item active" aria-current="page">تعبئة الرصيد</li>
+            </ol>
+        </nav>
+    </div>
+</div>

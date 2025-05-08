@@ -1,0 +1,391 @@
+{% extends 'base.html' %}
+
+{% block title %}تعبئة الرصيد{% endblock %}
+
+{% block content %}
+<div class="recharge-section">
+    <div class="mb-4">
+        <nav aria-label="breadcrumb" dir="rtl">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">مسبق الدفع</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تعبئة الرصيد</li>
+            </ol>
+        </nav>
+    </div>
+
+    <h1 class="mb-3">تعبئة رصيد هلا مسبقة الدفع</h1>
+    <h4 class="text-muted mb-3" style="color: #6c757d; font-size: 1.1rem;">تصفح للبحث عن خيار تعبئة رصيد هلا مسبقة الدفع الذي يلبي احتياجاتك. ثم قم بتعبئة رصيدك بسهولة و أمان عبر الإنترنت.</h4>
+    
+    <!-- حقول رقم الهاتف ومبلغ تعبئة الرصيد -->
+    <div class="quick-recharge-form bg-white p-4 rounded mb-4 shadow-sm">
+        <div class="row align-items-end">
+            <div class="col-md-5 mb-3 mb-md-0">
+                <label for="quick-mobile" class="form-label fw-bold">رقم الهاتف</label>
+                <div class="input-group">
+                    <span class="input-group-text">+974</span>
+                    <input type="text" class="form-control" id="quick-mobile" placeholder="أدخل رقم الهاتف" maxlength="8">
+                </div>
+                <div class="form-text">أدخل رقم هاتفك المكون من 8 أرقام</div>
+            </div>
+            
+            <div class="col-md-5 mb-3 mb-md-0">
+                <label for="quick-amount" class="form-label fw-bold">مبلغ تعبئة الرصيد</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="quick-amount" placeholder="أدخل المبلغ" step="1">
+                    <span class="input-group-text">ر.ق</span>
+                </div>
+                <div class="form-text">أدخل المبلغ المطلوب</div>
+            </div>
+            
+            <div class="col-md-2 d-grid">
+                <button class="btn btn-danger w-100" id="quick-recharge-btn">تعبئة الرصيد</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mobile-recharge-form mb-5">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg" id="search-packages" placeholder="ابحث عن باقات" aria-label="ابحث عن باقات">
+                    <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="packages-grid">
+        {% for package in combo_packages %}
+        <div class="package-card-wrapper mb-5">
+            <div class="package-banner">
+                {% if package.price >= 100 %}
+                <div class="banner-left" style="background-color: #FF9800;">
+                    <span class="banner-text">بيانات ليلية إضافية</span>
+                </div>
+                <div class="banner-right" style="background-color: #E60000;">
+                    <span class="banner-text">بيانات بلا حدود 256 كيلوبايت في الثانية</span>
+                </div>
+                {% elif package.price >= 65 %}
+                <div class="banner-left" style="background-color: #FF9800;">
+                    <span class="banner-text">بيانات ليلية إضافية</span>
+                </div>
+                <div class="banner-right" style="background-color: #E60000;">
+                    <span class="banner-text">بيانات بلا حدود 256 كيلوبايت في الثانية</span>
+                </div>
+                {% elif package.price >= 40 %}
+                <div class="banner-full" style="background-color: #E60000;">
+                    <span class="banner-text">بيانات ليلية إضافية</span>
+                </div>
+                {% else %}
+                <div class="banner-full" style="background-color: #E60000;">
+                    <span class="banner-text">جديد</span>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="package-card">
+                <div class="price-circle">
+                    <span class="price-prefix">ر.ق</span>
+                    <span class="price-value">{{ package.price }}</span>
+                </div>
+                
+                <div class="package-info">
+                    <h3 class="package-title">بطاقة تعبئة<br>هلا سوبر {{ package.price }}</h3>
+                    <p class="package-desc">{{ package.description_ar }}</p>
+                    
+                    <div class="package-features row">
+                        {% if package.data_allowance > 0 %}
+                        <div class="col-md-4 feature-item">
+                            <h4>{{ package.data_allowance // 1024 }} غيغابايت</h4>
+                            <p>بيانات محلية</p>
+                            <span class="validity">صلاحية: {{ package.validity_days }} يوم</span>
+                        </div>
+                        {% endif %}
+                        
+                        {% if package.voice_minutes > 0 %}
+                        <div class="col-md-4 feature-item">
+                            <h4>{{ package.voice_minutes }} دقائق محلية</h4>
+                            <p>{% if package.price >= 40 %}+ {{ package.price // 4 }} دقائق دولية إضافية{% endif %}</p>
+                            <span class="validity">صلاحية: {{ package.validity_days }} يوم</span>
+                        </div>
+                        {% endif %}
+                        
+                        {% if package.price >= 40 %}
+                        <div class="col-md-4 feature-item">
+                            <h4>{% if package.price >= 100 %}{{ package.data_allowance // 1024 // 4 }}{% elif package.price >= 65 %}{{ 1.2 }}{% else %}{{ 4 }}{% endif %} غيغابايت</h4>
+                            <p>بيانات ليلية إضافية</p>
+                            <span class="validity">صلاحية: {{ package.validity_days }} يوم</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="package-footer">
+                        <p class="validity-note">صلاحية الخط {{ package.validity_days }} يوم | <a href="#" class="terms-link">تطبق الشروط والأحكام</a></p>
+                        
+                        {% if package.price >= 40 %}
+                        <a href="#" class="details-link mb-3">تفاصيل الدقائق الدولية والإضافية للدولة</a>
+                        {% endif %}
+                        
+                        <button class="btn btn-recharge select-package" data-package-id="{{ package.id }}">عبي رصيدك الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="pagination-controls text-center mt-4">
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">السابق</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">التالي</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="filter-sort-bar fixed-bottom bg-white py-2 border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <a href="#" class="text-decoration-none text-danger">
+                        <i class="fas fa-sort"></i> فرز
+                    </a>
+                </div>
+                <div class="col-6 text-center">
+                    <a href="#" class="text-decoration-none text-danger">
+                        <i class="fas fa-filter"></i> تصنيف حسب
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- النموذج القديم تم تعطيله واستبداله بنموذج ظاهر دائماً في الأعلى -->
+    
+    <!-- Hidden form for package selection or custom amount -->
+    <div class="d-none">
+        <form method="POST" action="{{ url_for('recharge_payment') }}" id="recharge-form">
+            {{ form.csrf_token }}
+            {{ form.mobile_number }}
+            {{ form.package }}
+            {{ form.custom_amount }}
+            {{ form.submit }}
+        </form>
+    </div>
+    
+    <!-- Mobile Number Modal -->
+    <div class="modal fade" id="mobileNumberModal" tabindex="-1" aria-labelledby="mobileNumberModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mobileNumberModalLabel">أدخل رقم الهاتف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="mobile-input" class="form-label">رقم الهاتف</label>
+                        <div class="input-group">
+                            <span class="input-group-text">+974</span>
+                            <input type="text" class="form-control" id="mobile-input" placeholder="أدخل رقم الهاتف" maxlength="8">
+                        </div>
+                        <div class="form-text">أدخل رقم هاتفك المكون من 8 أرقام بدون الرمز الدولي</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" id="confirm-mobile">تأكيد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle package selection
+        const packageButtons = document.querySelectorAll('.select-package');
+        const mobileNumberModal = new bootstrap.Modal(document.getElementById('mobileNumberModal'));
+        let selectedPackageId = null;
+        
+        packageButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                selectedPackageId = this.getAttribute('data-package-id');
+                
+                // تحقق إذا كان حقل رقم الهاتف السريع مملوءاً
+                const quickMobileValue = document.getElementById('quick-mobile').value;
+                if(quickMobileValue && quickMobileValue.length === 8 && /^\d+$/.test(quickMobileValue)) {
+                    // استخدام رقم الهاتف المدخل في الحقل السريع مباشرةً
+                    submitPackageSelection(quickMobileValue, selectedPackageId);
+                } else {
+                    // إظهار نافذة إدخال رقم الهاتف
+                    mobileNumberModal.show();
+                }
+            });
+        });
+        
+        // وظيفة مساعدة لإرسال اختيار الباقة
+        function submitPackageSelection(mobileNumber, packageId) {
+            // Set values in the hidden form and submit
+            const form = document.getElementById('recharge-form');
+            if (form) {
+                const mobileInput = form.querySelector('[name="mobile_number"]');
+                const packageInput = form.querySelector('[name="package"]');
+                const customAmountInput = form.querySelector('[name="custom_amount"]');
+                
+                if (mobileInput && packageInput && customAmountInput) {
+                    mobileInput.value = mobileNumber;
+                    packageInput.value = packageId;
+                    customAmountInput.value = ''; // نترك حقل المبلغ المخصص فارغًا عند اختيار باقة
+                    
+                    // توجيه العميل مباشرة لصفحة الدفع
+                    const submitBtn = form.querySelector('[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.click();
+                    } else {
+                        // Fallback if no submit button is found
+                        try {
+                            form.requestSubmit(); // Modern browsers
+                        } catch (e) {
+                            // For older browsers, create and click a submit button
+                            const tempSubmitBtn = document.createElement('input');
+                            tempSubmitBtn.type = 'submit';
+                            tempSubmitBtn.style.display = 'none';
+                            form.appendChild(tempSubmitBtn);
+                            tempSubmitBtn.click();
+                            form.removeChild(tempSubmitBtn);
+                        }
+                    }
+                } else {
+                    console.error('Form inputs not found');
+                }
+            } else {
+                console.error('Form not found');
+            }
+        }
+        
+        // Handle mobile number confirmation
+        document.getElementById('confirm-mobile').addEventListener('click', function() {
+            const mobileInput = document.getElementById('mobile-input');
+            const mobileNumber = mobileInput.value;
+            
+            if(mobileNumber.length === 8 && /^\d+$/.test(mobileNumber)) {
+                // إغلاق النافذة وإرسال النموذج
+                mobileNumberModal.hide();
+                submitPackageSelection(mobileNumber, selectedPackageId);
+            } else {
+                alert('يرجى إدخال رقم هاتف صحيح مكون من 8 أرقام');
+            }
+        });
+        
+        // Mobile number input validation
+        const mobileInput = document.getElementById('mobile-input');
+        mobileInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+            if(this.value.length > 8) {
+                this.value = this.value.slice(0, 8);
+            }
+        });
+        
+        // إظهار/إخفاء نموذج تعبئة الرصيد
+        const phoneRechargeForm = document.querySelector('.phone-recharge-form');
+        const showRechargeFormBtn = document.getElementById('show-recharge-form');
+        const closeRechargeFormBtn = document.getElementById('close-recharge-form');
+        
+        if(showRechargeFormBtn) {
+            showRechargeFormBtn.addEventListener('click', function() {
+                if(phoneRechargeForm) {
+                    phoneRechargeForm.style.display = 'block';
+                }
+            });
+        }
+        
+        if(closeRechargeFormBtn) {
+            closeRechargeFormBtn.addEventListener('click', function() {
+                if(phoneRechargeForm) {
+                    phoneRechargeForm.style.display = 'none';
+                }
+            });
+        }
+        
+        // مدخلات حقل رقم الهاتف السريع
+        const quickMobileInput = document.getElementById('quick-mobile');
+        if(quickMobileInput) {
+            quickMobileInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+                if(this.value.length > 8) {
+                    this.value = this.value.slice(0, 8);
+                }
+            });
+        }
+        
+        // مدخلات حقل المبلغ السريع
+        const quickAmountInput = document.getElementById('quick-amount');
+        if(quickAmountInput) {
+            quickAmountInput.addEventListener('input', function() {
+                // لن نقوم بتقييد المبلغ، يمكن للمستخدم إدخال أي مبلغ
+            });
+        }
+        
+        // زر تعبئة الرصيد السريع (بمبلغ مخصص)
+        const quickRechargeBtn = document.getElementById('quick-recharge-btn');
+        if(quickRechargeBtn) {
+            quickRechargeBtn.addEventListener('click', function() {
+                const mobileNumber = quickMobileInput.value;
+                const amount = quickAmountInput.value || '10'; // استخدام مبلغ افتراضي 10 ر.ق إذا لم يتم إدخال مبلغ
+                
+                if(mobileNumber.length === 8 && /^\d+$/.test(mobileNumber)) {
+                    // تحقق ما إذا كنا سنستخدم الباقات أو نقوم بتعبئة مباشرة
+                    const form = document.getElementById('recharge-form');
+                    if (form) {
+                        const mobileInput = form.querySelector('[name="mobile_number"]');
+                        const packageInput = form.querySelector('[name="package"]');
+                        const customAmountInput = form.querySelector('[name="custom_amount"]');
+                        
+                        if (mobileInput && packageInput && customAmountInput) {
+                            // تعبئة البيانات في النموذج
+                            mobileInput.value = mobileNumber;
+                            
+                            // نقوم بتعبئة مباشرة (نترك حقل الباقة فارغاً ونستخدم المبلغ المخصص)
+                            packageInput.value = '';  // فارغ لأننا نستخدم المبلغ المخصص
+                            customAmountInput.value = amount;
+                            
+                            // إرسال النموذج للانتقال مباشرة إلى صفحة الدفع
+                            const submitBtn = form.querySelector('[type="submit"]');
+                            if (submitBtn) {
+                                submitBtn.click();
+                            } else {
+                                try {
+                                    form.requestSubmit();
+                                } catch (e) {
+                                    const tempSubmitBtn = document.createElement('input');
+                                    tempSubmitBtn.type = 'submit';
+                                    tempSubmitBtn.style.display = 'none';
+                                    form.appendChild(tempSubmitBtn);
+                                    tempSubmitBtn.click();
+                                    form.removeChild(tempSubmitBtn);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    alert('يرجى إدخال رقم هاتف صحيح مكون من 8 أرقام');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+
